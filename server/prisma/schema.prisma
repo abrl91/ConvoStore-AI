@@ -1,0 +1,57 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  notes     Note[]
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model Note {
+  categories  Category[]
+  content     String?
+  createdAt   DateTime   @default(now())
+  description String?
+  id          String     @id @default(cuid())
+  slug        String?    @unique
+  title       String
+  updatedAt   DateTime   @updatedAt
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model Template {
+  content   String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String   @unique
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  createdAt DateTime             @default(now())
+  id        String               @id @default(cuid())
+  notes     Note[]
+  options   EnumCategoryOptions?
+  updatedAt DateTime             @updatedAt
+}
+
+enum EnumCategoryOptions {
+  Photography
+  Music
+  Piano
+  Code
+  Sports
+}
