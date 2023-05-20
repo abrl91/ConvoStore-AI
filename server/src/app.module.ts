@@ -2,6 +2,7 @@ import { Module, Scope } from "@nestjs/common";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { MorganInterceptor, MorganModule } from "nest-morgan";
 import { UserModule } from "./user/user.module";
+import { ChatModule } from "./chat/chat.module";
 import { NoteModule } from "./note/note.module";
 import { TemplateModule } from "./template/template.module";
 import { CategoryModule } from "./category/category.module";
@@ -22,6 +23,7 @@ import { AuthModule } from "./auth/auth.module";
     ACLModule,
     AuthModule,
     UserModule,
+    ChatModule,
     NoteModule,
     TemplateModule,
     CategoryModule,
