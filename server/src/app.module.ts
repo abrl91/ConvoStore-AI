@@ -31,7 +31,10 @@ import { AuthModule } from "./auth/auth.module";
     PrismaModule,
     SecretsManagerModule,
     MorganModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [".env.dev", ".env.example"],
+    }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
     }),
