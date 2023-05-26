@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
 import { NoteCreateNestedManyWithoutUsersInput } from "./NoteCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { ProfileWhereUniqueInput } from "../../profile/base/ProfileWhereUniqueInput";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -61,6 +62,18 @@ class UserCreateInput {
   @IsString()
   @Field(() => String)
   password!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProfileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProfileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProfileWhereUniqueInput, {
+    nullable: true,
+  })
+  profile?: ProfileWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

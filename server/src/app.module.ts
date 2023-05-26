@@ -6,6 +6,7 @@ import { ChatModule } from "./chat/chat.module";
 import { NoteModule } from "./note/note.module";
 import { TemplateModule } from "./template/template.module";
 import { CategoryModule } from "./category/category.module";
+import { ProfileModule } from "./profile/profile.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -27,6 +28,7 @@ import { AuthModule } from "./auth/auth.module";
     NoteModule,
     TemplateModule,
     CategoryModule,
+    ProfileModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
