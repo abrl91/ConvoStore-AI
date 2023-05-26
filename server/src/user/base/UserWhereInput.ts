@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { NoteListRelationFilter } from "../../note/base/NoteListRelationFilter";
+import { ProfileWhereUniqueInput } from "../../profile/base/ProfileWhereUniqueInput";
 
 @InputType()
 class UserWhereInput {
@@ -63,6 +64,18 @@ class UserWhereInput {
     nullable: true,
   })
   notes?: NoteListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProfileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProfileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProfileWhereUniqueInput, {
+    nullable: true,
+  })
+  profile?: ProfileWhereUniqueInput;
 
   @ApiProperty({
     required: false,

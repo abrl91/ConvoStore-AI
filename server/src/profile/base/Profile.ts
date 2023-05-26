@@ -13,14 +13,13 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, IsString, IsOptional, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { Note } from "../../note/base/Note";
-import { Profile } from "../../profile/base/Profile";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { User } from "../../user/base/User";
 
 @ObjectType()
-class User {
+class Profile {
   @ApiProperty({
     required: true,
   })
@@ -28,17 +27,6 @@ class User {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  firstName!: string | null;
 
   @ApiProperty({
     required: true,
@@ -50,39 +38,13 @@ class User {
 
   @ApiProperty({
     required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  lastName!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Note],
-  })
-  @ValidateNested()
-  @Type(() => Note)
-  @IsOptional()
-  notes?: Array<Note>;
-
-  @ApiProperty({
-    required: false,
-    type: () => Profile,
-  })
-  @ValidateNested()
-  @Type(() => Profile)
-  @IsOptional()
-  profile?: Profile | null;
-
-  @ApiProperty({
-    required: true,
   })
   @IsJSONValue()
-  @Field(() => GraphQLJSON)
-  roles!: JsonValue;
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  settings!: JsonValue;
 
   @ApiProperty({
     required: true,
@@ -93,12 +55,13 @@ class User {
   updatedAt!: Date;
 
   @ApiProperty({
-    required: true,
-    type: String,
+    required: false,
+    type: () => User,
   })
-  @IsString()
-  @Field(() => String)
-  username!: string;
+  @ValidateNested()
+  @Type(() => User)
+  @IsOptional()
+  user?: User | null;
 }
 
-export { User as User };
+export { Profile as Profile };
