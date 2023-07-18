@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { TemplateWhereInput } from "./TemplateWhereInput";
+import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
 import { TemplateOrderByInput } from "./TemplateOrderByInput";
 
@@ -21,6 +22,8 @@ class TemplateFindManyArgs {
     required: false,
     type: () => TemplateWhereInput,
   })
+  @IsOptional()
+  @ValidateNested()
   @Field(() => TemplateWhereInput, { nullable: true })
   @Type(() => TemplateWhereInput)
   where?: TemplateWhereInput;
@@ -29,6 +32,8 @@ class TemplateFindManyArgs {
     required: false,
     type: [TemplateOrderByInput],
   })
+  @IsOptional()
+  @ValidateNested({ each: true })
   @Field(() => [TemplateOrderByInput], { nullable: true })
   @Type(() => TemplateOrderByInput)
   orderBy?: Array<TemplateOrderByInput>;
@@ -37,6 +42,8 @@ class TemplateFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   skip?: number;
@@ -45,6 +52,8 @@ class TemplateFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   take?: number;

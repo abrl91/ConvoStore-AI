@@ -22,6 +22,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { CreateTemplateArgs } from "./CreateTemplateArgs";
 import { UpdateTemplateArgs } from "./UpdateTemplateArgs";
 import { DeleteTemplateArgs } from "./DeleteTemplateArgs";
+import { TemplateCountArgs } from "./TemplateCountArgs";
 import { TemplateFindManyArgs } from "./TemplateFindManyArgs";
 import { TemplateFindUniqueArgs } from "./TemplateFindUniqueArgs";
 import { Template } from "./Template";
@@ -41,15 +42,11 @@ export class TemplateResolverBase {
     possession: "any",
   })
   async _templatesMeta(
-    @graphql.Args() args: TemplateFindManyArgs
+    @graphql.Args() args: TemplateCountArgs
   ): Promise<MetaQueryPayload> {
-    const results = await this.service.count({
-      ...args,
-      skip: undefined,
-      take: undefined,
-    });
+    const result = await this.service.count(args);
     return {
-      count: results,
+      count: result,
     };
   }
 

@@ -22,6 +22,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { CreateProfileArgs } from "./CreateProfileArgs";
 import { UpdateProfileArgs } from "./UpdateProfileArgs";
 import { DeleteProfileArgs } from "./DeleteProfileArgs";
+import { ProfileCountArgs } from "./ProfileCountArgs";
 import { ProfileFindManyArgs } from "./ProfileFindManyArgs";
 import { ProfileFindUniqueArgs } from "./ProfileFindUniqueArgs";
 import { Profile } from "./Profile";
@@ -42,15 +43,11 @@ export class ProfileResolverBase {
     possession: "any",
   })
   async _profilesMeta(
-    @graphql.Args() args: ProfileFindManyArgs
+    @graphql.Args() args: ProfileCountArgs
   ): Promise<MetaQueryPayload> {
-    const results = await this.service.count({
-      ...args,
-      skip: undefined,
-      take: undefined,
-    });
+    const result = await this.service.count(args);
     return {
-      count: results,
+      count: result,
     };
   }
 

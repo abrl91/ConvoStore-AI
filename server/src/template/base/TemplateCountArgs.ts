@@ -11,20 +11,18 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
-import { ValidateNested } from "class-validator";
+import { TemplateWhereInput } from "./TemplateWhereInput";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class DeleteUserArgs {
+class TemplateCountArgs {
   @ApiProperty({
-    required: true,
-    type: () => UserWhereUniqueInput,
+    required: false,
+    type: () => TemplateWhereInput,
   })
-  @ValidateNested()
-  @Type(() => UserWhereUniqueInput)
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  where!: UserWhereUniqueInput;
+  @Field(() => TemplateWhereInput, { nullable: true })
+  @Type(() => TemplateWhereInput)
+  where?: TemplateWhereInput;
 }
 
-export { DeleteUserArgs as DeleteUserArgs };
+export { TemplateCountArgs as TemplateCountArgs };

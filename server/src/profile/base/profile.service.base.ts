@@ -15,8 +15,8 @@ import { Prisma, Profile, User } from "@prisma/client";
 export class ProfileServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.ProfileFindManyArgs>(
-    args: Prisma.SelectSubset<T, Prisma.ProfileFindManyArgs>
+  async count<T extends Prisma.ProfileCountArgs>(
+    args: Prisma.SelectSubset<T, Prisma.ProfileCountArgs>
   ): Promise<number> {
     return this.prisma.profile.count(args);
   }

@@ -15,8 +15,8 @@ import { Prisma, Note, Category, User } from "@prisma/client";
 export class NoteServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.NoteFindManyArgs>(
-    args: Prisma.SelectSubset<T, Prisma.NoteFindManyArgs>
+  async count<T extends Prisma.NoteCountArgs>(
+    args: Prisma.SelectSubset<T, Prisma.NoteCountArgs>
   ): Promise<number> {
     return this.prisma.note.count(args);
   }

@@ -10,10 +10,19 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { ArgsType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
 import { NoteWhereUniqueInput } from "./NoteWhereUniqueInput";
+import { ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
 
 @ArgsType()
 class DeleteNoteArgs {
+  @ApiProperty({
+    required: true,
+    type: () => NoteWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => NoteWhereUniqueInput)
   @Field(() => NoteWhereUniqueInput, { nullable: false })
   where!: NoteWhereUniqueInput;
 }
