@@ -22,6 +22,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { CreateCategoryArgs } from "./CreateCategoryArgs";
 import { UpdateCategoryArgs } from "./UpdateCategoryArgs";
 import { DeleteCategoryArgs } from "./DeleteCategoryArgs";
+import { CategoryCountArgs } from "./CategoryCountArgs";
 import { CategoryFindManyArgs } from "./CategoryFindManyArgs";
 import { CategoryFindUniqueArgs } from "./CategoryFindUniqueArgs";
 import { Category } from "./Category";
@@ -43,15 +44,11 @@ export class CategoryResolverBase {
     possession: "any",
   })
   async _categoriesMeta(
-    @graphql.Args() args: CategoryFindManyArgs
+    @graphql.Args() args: CategoryCountArgs
   ): Promise<MetaQueryPayload> {
-    const results = await this.service.count({
-      ...args,
-      skip: undefined,
-      take: undefined,
-    });
+    const result = await this.service.count(args);
     return {
-      count: results,
+      count: result,
     };
   }
 

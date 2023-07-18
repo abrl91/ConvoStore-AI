@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { CategoryWhereInput } from "./CategoryWhereInput";
+import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
 import { CategoryOrderByInput } from "./CategoryOrderByInput";
 
@@ -21,6 +22,8 @@ class CategoryFindManyArgs {
     required: false,
     type: () => CategoryWhereInput,
   })
+  @IsOptional()
+  @ValidateNested()
   @Field(() => CategoryWhereInput, { nullable: true })
   @Type(() => CategoryWhereInput)
   where?: CategoryWhereInput;
@@ -29,6 +32,8 @@ class CategoryFindManyArgs {
     required: false,
     type: [CategoryOrderByInput],
   })
+  @IsOptional()
+  @ValidateNested({ each: true })
   @Field(() => [CategoryOrderByInput], { nullable: true })
   @Type(() => CategoryOrderByInput)
   orderBy?: Array<CategoryOrderByInput>;
@@ -37,6 +42,8 @@ class CategoryFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   skip?: number;
@@ -45,6 +52,8 @@ class CategoryFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   take?: number;

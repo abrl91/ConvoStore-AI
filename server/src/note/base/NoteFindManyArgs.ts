@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { NoteWhereInput } from "./NoteWhereInput";
+import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
 import { NoteOrderByInput } from "./NoteOrderByInput";
 
@@ -21,6 +22,8 @@ class NoteFindManyArgs {
     required: false,
     type: () => NoteWhereInput,
   })
+  @IsOptional()
+  @ValidateNested()
   @Field(() => NoteWhereInput, { nullable: true })
   @Type(() => NoteWhereInput)
   where?: NoteWhereInput;
@@ -29,6 +32,8 @@ class NoteFindManyArgs {
     required: false,
     type: [NoteOrderByInput],
   })
+  @IsOptional()
+  @ValidateNested({ each: true })
   @Field(() => [NoteOrderByInput], { nullable: true })
   @Type(() => NoteOrderByInput)
   orderBy?: Array<NoteOrderByInput>;
@@ -37,6 +42,8 @@ class NoteFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   skip?: number;
@@ -45,6 +52,8 @@ class NoteFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   take?: number;

@@ -10,10 +10,19 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { ArgsType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
 import { NoteCreateInput } from "./NoteCreateInput";
+import { ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
 
 @ArgsType()
 class CreateNoteArgs {
+  @ApiProperty({
+    required: true,
+    type: () => NoteCreateInput,
+  })
+  @ValidateNested()
+  @Type(() => NoteCreateInput)
   @Field(() => NoteCreateInput, { nullable: false })
   data!: NoteCreateInput;
 }

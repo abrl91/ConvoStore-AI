@@ -22,6 +22,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { CreateNoteArgs } from "./CreateNoteArgs";
 import { UpdateNoteArgs } from "./UpdateNoteArgs";
 import { DeleteNoteArgs } from "./DeleteNoteArgs";
+import { NoteCountArgs } from "./NoteCountArgs";
 import { NoteFindManyArgs } from "./NoteFindManyArgs";
 import { NoteFindUniqueArgs } from "./NoteFindUniqueArgs";
 import { Note } from "./Note";
@@ -44,15 +45,11 @@ export class NoteResolverBase {
     possession: "any",
   })
   async _notesMeta(
-    @graphql.Args() args: NoteFindManyArgs
+    @graphql.Args() args: NoteCountArgs
   ): Promise<MetaQueryPayload> {
-    const results = await this.service.count({
-      ...args,
-      skip: undefined,
-      take: undefined,
-    });
+    const result = await this.service.count(args);
     return {
-      count: results,
+      count: result,
     };
   }
 

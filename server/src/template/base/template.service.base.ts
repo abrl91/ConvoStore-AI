@@ -15,8 +15,8 @@ import { Prisma, Template } from "@prisma/client";
 export class TemplateServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.TemplateFindManyArgs>(
-    args: Prisma.SelectSubset<T, Prisma.TemplateFindManyArgs>
+  async count<T extends Prisma.TemplateCountArgs>(
+    args: Prisma.SelectSubset<T, Prisma.TemplateCountArgs>
   ): Promise<number> {
     return this.prisma.template.count(args);
   }

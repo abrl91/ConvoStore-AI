@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { ProfileWhereInput } from "./ProfileWhereInput";
+import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
 import { ProfileOrderByInput } from "./ProfileOrderByInput";
 
@@ -21,6 +22,8 @@ class ProfileFindManyArgs {
     required: false,
     type: () => ProfileWhereInput,
   })
+  @IsOptional()
+  @ValidateNested()
   @Field(() => ProfileWhereInput, { nullable: true })
   @Type(() => ProfileWhereInput)
   where?: ProfileWhereInput;
@@ -29,6 +32,8 @@ class ProfileFindManyArgs {
     required: false,
     type: [ProfileOrderByInput],
   })
+  @IsOptional()
+  @ValidateNested({ each: true })
   @Field(() => [ProfileOrderByInput], { nullable: true })
   @Type(() => ProfileOrderByInput)
   orderBy?: Array<ProfileOrderByInput>;
@@ -37,6 +42,8 @@ class ProfileFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   skip?: number;
@@ -45,6 +52,8 @@ class ProfileFindManyArgs {
     required: false,
     type: Number,
   })
+  @IsOptional()
+  @IsInt()
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   take?: number;
